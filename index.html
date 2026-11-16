@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ritesh Tiwari | Systems, Backend &amp; Agentic AI Engineer</title>
+  <meta name="description" content="Ritesh Tiwari, software engineer working on systems programming (C++, Rust), backend services (Python, FastAPI, Kafka) and agentic AI. Projects: Type-2 hypervisor, distributed server monitoring, Scholar research agent." />
+  <meta name="author" content="Ritesh Tiwari" />
+  <meta name="theme-color" content="#181818" />
+
+  <!-- Open Graph (link previews on LinkedIn, WhatsApp, etc.) -->
+  <meta property="og:title" content="Ritesh Tiwari | Systems, Backend & Agentic AI" />
+  <meta property="og:description" content="C++ / Rust systems work, Python backends, and agentic AI. Hypervisors, Kafka pipelines, LangGraph agents." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/profile.jpg" />
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <!-- Computer Modern (the LaTeX font) for the academic section -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts.css" />
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- mark JS as available before first paint, so the boot screen only shows when it can finish -->
+  <script>document.documentElement.classList.add("js", "is-booting");</script>
+</head>
+
+<body>
+  <!-- ========== BOOT SCREEN ========== -->
+  <div class="boot" id="boot" role="status" aria-live="polite" aria-label="Loading portfolio">
+    <div class="boot__win">
+      <pre class="boot__log" id="boot-log"></pre>
+      <div class="boot__foot mono">
+        <span class="boot__bar"><span class="boot__fill" id="boot-fill"></span></span>
+        <span id="boot-pct">0%</span>
+      </div>
+    </div>
+    <p class="boot__skip mono">press any key or tap to skip</p>
+  </div>
+
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- ========== NAV ========== -->
+  <header class="nav" id="top">
+    <div class="nav__inner">
+      <a href="#top" class="nav__brand" aria-label="Home">
+        <span class="prompt-user">ritesh</span><span class="prompt-at">@</span><span class="prompt-host">monarch</span><span class="prompt-sep">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span><span class="cursor" aria-hidden="true"></span>
+      </a>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#about">~/about</a>
+        <a href="#experience">~/experience</a>
+        <a href="#projects">~/projects</a>
+        <a href="#academics">~/academics</a>
+        <a href="#contact">~/contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+      <canvas id="hexrain" aria-hidden="true"></canvas>
+      <div class="container hero__grid">
+
+        <div class="hero__text" data-speed="0.18">
+          <p class="hero__boot mono">[&nbsp;&nbsp;&nbsp;0.000000] boot: loading <span class="accent">ritesh.ko</span> … <span class="ok">ok</span></p>
+          <h1 class="hero__name">Ritesh Tiwari</h1>
+          <p class="hero__role mono">
+            <span class="kw">systems</span> <span class="op">|</span>
+            <span class="kw">backend</span> <span class="op">|</span>
+            <span class="kw">agentic&nbsp;ai</span>
+          </p>
+          <p class="hero__lead">
+            I write software close to the metal and behind the API:
+            a Type-2 hypervisor on AMD SVM, a Kafka-backed monitoring platform,
+            and agents that reason over research papers. C++ and Rust by heart,
+            Python and FastAPI for shipping.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="#projects"><span class="mono">./</span>view_projects</a>
+            <a class="btn" href="https://github.com/monarch-69" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              github
+            </a>
+            <a class="btn" href="https://www.linkedin.com/in/ritesh-tiwari-67871124a/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M0 1.15C0 .52.52 0 1.17 0h13.66C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.17 1.15H1.17C.52 16 0 15.48 0 14.85zm4.94 12.23V6.17H2.53v7.21zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.35-1.25s-1.36.54-1.36 1.25c0 .7.52 1.25 1.33 1.25zm4.93 8.2V9.35c0-.21.02-.43.08-.58.17-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.86h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.3 0-1.86.72-2.18 1.21v.03h-.02l.02-.03V6.17H6.26c.03.68 0 7.21 0 7.21z"/></svg>
+              linkedin
+            </a>
+            <!-- Put your resume PDF at assets/Ritesh_Tiwari_Resume.pdf -->
+            <a class="btn" href="assets/Ritesh_Tiwari_Resume.pdf" target="_blank" rel="noopener">resume.pdf</a>
+          </div>
+
+          <div class="terminal" aria-label="Terminal intro">
+            <div class="terminal__bar">
+              <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+              <span class="terminal__title">bash · 80×24</span>
+            </div>
+            <pre class="terminal__body" id="term"><noscript>$ whoami
+ritesh tiwari · software engineer · mumbai, in</noscript></pre>
+          </div>
+        </div>
+
+        <figure class="photo" data-speed="-0.12" data-tilt>
+          <div class="photo__hex mono" aria-hidden="true">
+            <span class="addr">00000000</span> ffd8 ffe0 0010 4a46 4946 0001 <span class="ascii">|......JFIF..|</span>
+          </div>
+          <div class="photo__frame">
+            <span class="corner corner--tl"></span><span class="corner corner--tr"></span>
+            <span class="corner corner--bl"></span><span class="corner corner--br"></span>
+            <!-- Drop your photo at assets/img/profile.jpg (square, ~800x800 works best) -->
+            <img src="assets/img/profile.jpg" alt="Photo of Ritesh Tiwari" id="profile-img" width="800" height="800" />
+            <div class="photo__fallback mono" aria-hidden="true">
+              <pre>
+ ██████╗ ████████╗
+ ██╔══██╗╚══██╔══╝
+ ██████╔╝   ██║
+ ██╔══██╗   ██║
+ ██║  ██║   ██║
+ ╚═╝  ╚═╝   ╚═╝</pre>
+              <span>add assets/img/profile.jpg</span>
+            </div>
+          </div>
+          <figcaption class="mono">
+            <span class="muted">$ file</span> profile.jpg<br />
+            <span class="muted">profile.jpg:</span> JPEG image data, JFIF standard 1.01
+          </figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="section" id="about">
+      <span class="watermark mono" data-speed="-0.25" aria-hidden="true">0x01</span>
+      <div class="container">
+        <h2 class="section__title"><span class="addr">0x01</span> about <span class="rule"></span></h2>
+
+        <div class="about__grid">
+          <div class="about__text reveal">
+            <p>
+              I'm a software engineer from Mumbai with a B.E. in Computer Engineering
+              (CGPA 9.4/10). I like understanding a system all the way down: how a
+              hypervisor traps a guest instruction, how a syscall reads <code>/proc</code>,
+              how a consumer group splits a Kafka topic. Then I like building something
+              useful on top of it.
+            </p>
+            <p>
+              At <strong>Deccan AI</strong> I built the company's first resource management
+              system, wrote the automation that ran agent benchmarks in parallel, and
+              evaluated LLMs and coding agents for client projects across five languages.
+            </p>
+            <p>
+              Right now I'm focused on three tracks: <span class="hl">systems &amp; low-level
+              (C++, Rust)</span>, <span class="hl">backend services (Python, C++)</span>, and
+              <span class="hl">agentic AI</span>. I'm open to roles in India or remote.
+            </p>
+          </div>
+
+          <div class="code reveal" aria-label="Skills as a C++ struct">
+            <div class="code__bar mono"><span>engineer.hpp</span><span class="muted">C++17</span></div>
+<pre class="code__body"><code><span class="c">// compiled with -O2 -Wall -Werror</span>
+<span class="k">struct</span> <span class="t">Engineer</span> {
+  <span class="t">std::string_view</span> name  = <span class="s">"Ritesh Tiwari"</span>;
+  <span class="t">std::string_view</span> base  = <span class="s">"Mumbai, IN"</span>;
+
+  <span class="t">std::array</span> langs   = { <span class="s">"C++"</span>, <span class="s">"C"</span>, <span class="s">"Rust"</span>,
+                        <span class="s">"Python"</span>, <span class="s">"TypeScript"</span>, <span class="s">"x86-64 asm"</span> };
+  <span class="t">std::array</span> systems = { <span class="s">"Linux"</span>, <span class="s">"procfs / syscalls"</span>,
+                        <span class="s">"AMD SVM"</span>, <span class="s">"Windows kernel drivers"</span>,
+                        <span class="s">"multithreading"</span> };
+  <span class="t">std::array</span> backend = { <span class="s">"FastAPI"</span>, <span class="s">"Kafka"</span>, <span class="s">"PostgreSQL"</span>,
+                        <span class="s">"Docker"</span>, <span class="s">"AWS"</span>, <span class="s">"REST / SSE"</span> };
+  <span class="t">std::array</span> ai      = { <span class="s">"LangGraph"</span>, <span class="s">"LangChain"</span>, <span class="s">"RAG"</span>,
+                        <span class="s">"ChromaDB"</span>, <span class="s">"Ollama"</span>, <span class="s">"LLM evaluation"</span> };
+
+  [[<span class="k">nodiscard</span>]] <span class="k">bool</span> <span class="f">open_to_work</span>() <span class="k">const noexcept</span> { <span class="k">return</span> <span class="n">true</span>; }
+};</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== EXPERIENCE ========== -->
+    <section class="section" id="experience">
+      <span class="watermark mono" data-speed="-0.25" aria-hidden="true">0x02</span>
+      <div class="container">
+        <h2 class="section__title"><span class="addr">0x02</span> experience <span class="rule"></span></h2>
+
+        <p class="mono muted cmdline">$ git log --graph --author="ritesh" deccan-ai</p>
+
+        <div class="xp">
+          <!-- left: sticky stats panel (stays in place while the log scrolls) -->
+          <aside class="xp__panel">
+            <div class="xp__card">
+              <div class="xp__role">
+                <span class="xp__org">Deccan AI</span>
+                <span class="xp__title">Software Engineer (SWE)</span>
+                <span class="xp__date mono">Dec 2025 → Aug 2026</span>
+              </div>
+              <dl class="stats mono">
+                <div class="stat"><dt><span class="count" data-to="300">0</span>+</dt><dd>employees on the RMS</dd></div>
+                <div class="stat"><dt>~<span class="count" data-to="50">0</span>%</dt><dd>faster leave approvals</dd></div>
+                <div class="stat"><dt>~<span class="count" data-to="40">0</span>%</dt><dd>less time and errors in metrics</dd></div>
+                <div class="stat"><dt><span class="count" data-to="7">0</span></dt><dd>client eval projects</dd></div>
+              </dl>
+              <div class="xp__progress mono" aria-hidden="true">
+                <span class="muted">reading log</span>
+                <span class="bar"><span class="bar__fill"></span></span>
+                <span class="pct">0%</span>
+              </div>
+            </div>
+          </aside>
+
+          <!-- right: git graph, each bullet lights up as the rail fills -->
+          <div class="graph">
+            <div class="graph__rail" aria-hidden="true"><span class="graph__fill"></span></div>
+
+            <div class="graph__head mono">
+              <span class="node node--head"></span>
+              <span class="commit__hash">commit 7d3c2a9</span>
+              <span class="commit__ref">(HEAD -&gt; <span class="branch">deccan-ai</span>)</span>
+            </div>
+
+            <ol class="graph__list">
+              <li class="gnode">
+                <span class="node"></span>
+                <span class="gnode__tag mono">feat(rms)</span>
+                <p>Built the company's first <strong>Resource Management System (RMS)</strong> with Python, FastAPI and Streamlit on AWS, and PostgreSQL on Supabase. It tracks people, attendance, project assignments and server inventory for 300+ employees, with role-based access for every stakeholder.</p>
+              </li>
+              <li class="gnode">
+                <span class="node"></span>
+                <span class="gnode__tag mono">feat(rms)</span>
+                <p>Built a leave-request tracker that cut approval wait time by about 50%, and automated performance metrics for employees and contractors, cutting calculation time and errors by about 40%.</p>
+              </li>
+              <li class="gnode">
+                <span class="node"></span>
+                <span class="gnode__tag mono">perf(rms)</span>
+                <p>Sped up batch ingestion with async I/O, writing to the database while records were still being read and updated.</p>
+              </li>
+              <li class="gnode">
+                <span class="node"></span>
+                <span class="gnode__tag mono">feat(eval)</span>
+                <p>Evaluated LLMs and coding agents on Terminal-Bench, SWE and DeepSWE-style tasks across C++, Python, Rust, Java and JavaScript for 7 client projects. Designed rubrics that turned open-ended quality criteria into reproducible scores.</p>
+              </li>
+              <li class="gnode">
+                <span class="node"></span>
+                <span class="gnode__tag mono">feat(infra)</span>
+                <p>Built testing infrastructure and an evaluation harness for agent runs.</p>
+              </li>
+              <li class="gnode">
+                <span class="node"></span>
+                <span class="gnode__tag mono">chore(infra)</span>
+                <p>Wrote scheduling scripts that ran Harbor benchmark jobs in batches and in parallel, computing how many worker threads the machine could safely spawn, and collected the results automatically.</p>
+              </li>
+            </ol>
+
+            <div class="graph__stat mono">
+              <span class="node node--end"></span>
+              <span class="plus">+ python fastapi streamlit postgresql aws docker</span>
+              <span class="plus">+ harbor terminal-bench rubric-design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROJECTS ========== -->
+    <section class="section" id="projects">
+      <span class="watermark mono" data-speed="-0.25" aria-hidden="true">0x03</span>
+      <div class="container">
+        <h2 class="section__title"><span class="addr">0x03</span> projects <span class="rule"></span></h2>
+
+        <div class="filters mono" role="tablist" aria-label="Filter projects">
+          <span class="muted">$ ls ~/projects --filter=</span>
+          <button class="filter is-active" data-filter="all">all</button>
+          <button class="filter" data-filter="systems">systems</button>
+          <button class="filter" data-filter="backend">backend</button>
+          <button class="filter" data-filter="ai">ai</button>
+        </div>
+
+        <div class="ptl">
+          <div class="ptl__rail" aria-hidden="true"><span class="ptl__fill"></span></div>
+
+          <article class="prow" data-tags="systems">
+            <span class="prow__node" aria-hidden="true"></span>
+            <div class="prow__id">
+              <div class="prow__meta mono"><span class="prow__path">~/projects/<strong>TypeTwo-Core</strong></span><span class="badge badge--stable mono">stable</span></div>
+              <h3 class="prow__name">
+              <a class="pname" href="https://github.com/monarch-69/TypeTwo-Core" target="_blank" rel="noopener" aria-label="TypeTwo-Core on GitHub (opens in a new tab)">
+                <span class="pname__text">TypeTwo-Core</span><span class="pname__icon" aria-hidden="true">↗</span>
+                <span class="peek mono" aria-hidden="true"><span class="peek__text">$ open github.com/monarch-69/TypeTwo-Core</span></span>
+              </a>
+              </h3>
+              <p class="prow__sub">Type-2 hypervisor for Windows on AMD SVM</p>
+              <ul class="tags mono"><li>C++</li><li>C</li><li>x86-64 asm</li><li>WDK</li><li>AMD SVM</li></ul>
+              <p class="prow__kw mono"><span class="muted">// </span>VMCB · VMRUN · VM exits · instruction interception · kernel-mode driver · IOCTL</p>
+            </div>
+            <div class="prow__body">
+              <p class="prow__desc">A hypervisor for Windows that uses AMD's Secure Virtual Machine extensions to run a guest under its control. Written from scratch in C++, C and assembly.</p>
+              <ul class="prow__list">
+                <li>Sets up the VMCB and manages guest state across VM entry and exit.</li>
+                <li>Intercepts guest instructions and handles the resulting VM exits.</li>
+                <li>Runs as a Windows kernel-mode driver, controlled from user mode through IOCTL interfaces.</li>
+              </ul>
+              <div class="prow__diagram mono" aria-hidden="true"><pre>  user mode    │  ctl.exe ──IOCTL──┐
+ ──────────────┼───────────────────▼──────────
+  kernel mode  │  driver.sys → VMRUN ⇄ #VMEXIT
+ ──────────────┼──────────────────────────────
+  hardware     │  AMD-V (SVM) · VMCB</pre></div>
+            </div>
+          </article>
+
+          <article class="prow" data-tags="systems backend">
+            <span class="prow__node" aria-hidden="true"></span>
+            <div class="prow__id">
+              <div class="prow__meta mono"><span class="prow__path">~/projects/<strong>TheMonitor</strong></span><span class="badge badge--stable mono">stable</span></div>
+              <h3 class="prow__name">
+              <a class="pname" href="https://github.com/monarch-69/TheMonitor" target="_blank" rel="noopener" aria-label="TheMonitor on GitHub (opens in a new tab)">
+                <span class="pname__text">TheMonitor</span><span class="pname__icon" aria-hidden="true">↗</span>
+                <span class="peek mono" aria-hidden="true"><span class="peek__text">$ open github.com/monarch-69/TheMonitor</span></span>
+              </a>
+              </h3>
+              <p class="prow__sub">Distributed server monitoring suite</p>
+              <ul class="tags mono"><li>C++17</li><li>Python</li><li>FastAPI</li><li>Kafka</li><li>Docker</li><li>React + TS</li></ul>
+              <p class="prow__kw mono"><span class="muted">// </span>procfs · syscalls · libcurl · Kafka consumer groups · multithreading · Argon2id · Ed25519</p>
+            </div>
+            <div class="prow__body">
+              <p class="prow__desc">An open-source platform that collects live telemetry from many Linux servers and streams it through an event pipeline to a web dashboard.</p>
+              <ul class="prow__list">
+                <li>C++17 telemetry agent reads CPU and memory data from <code>/proc</code> via syscalls and ships it over HTTP with libcurl.</li>
+                <li>Moved ingestion from one Docker container per account to a Kafka event pipeline with consumer groups, so it scales with the number of servers.</li>
+                <li>Multithreaded FastAPI backend with Argon2id password hashing and Ed25519 challenge-response auth for agents.</li>
+                <li>React + TypeScript dashboard.</li>
+              </ul>
+              <div class="prow__diagram mono" aria-hidden="true"><pre> agent.cpp  ← /proc/stat, /proc/meminfo
+     │ libcurl
+     ▼
+ FastAPI ──▶ Kafka ──▶ consumers ──▶ Postgres
+                                 └──▶ React UI</pre></div>
+            </div>
+          </article>
+
+          <article class="prow" data-tags="ai backend">
+            <span class="prow__node" aria-hidden="true"></span>
+            <div class="prow__id">
+              <div class="prow__meta mono"><span class="prow__path">~/projects/<strong>Scholar</strong></span><span class="badge badge--stable mono">stable</span></div>
+              <h3 class="prow__name">
+              <a class="pname" href="https://github.com/monarch-69/Scholar" target="_blank" rel="noopener" aria-label="Scholar on GitHub (opens in a new tab)">
+                <span class="pname__text">Scholar</span><span class="pname__icon" aria-hidden="true">↗</span>
+                <span class="peek mono" aria-hidden="true"><span class="peek__text">$ open github.com/monarch-69/Scholar</span></span>
+              </a>
+              </h3>
+              <p class="prow__sub">Agentic research-paper assistant</p>
+              <ul class="tags mono"><li>Python</li><li>LangGraph</li><li>ChromaDB</li><li>FastAPI</li><li>PostgreSQL</li><li>React + TS</li></ul>
+              <p class="prow__kw mono"><span class="muted">// </span>ReAct agent · tool calling · RAG · semantic cache · SSE streaming · cited answers</p>
+            </div>
+            <div class="prow__body">
+              <p class="prow__desc">Upload research papers as PDFs and ask questions. An agent searches the papers and answers with citations to the exact passages it used.</p>
+              <ul class="prow__list">
+                <li>LangGraph ReAct agent with tool calling.</li>
+                <li>RAG retrieval over ChromaDB, with a semantic cache for repeated questions.</li>
+                <li>FastAPI + PostgreSQL backend that streams answers over SSE to a React + TypeScript UI.</li>
+              </ul>
+              <div class="prow__diagram mono" aria-hidden="true"><pre> PDF ─▶ chunk + embed ─▶ ChromaDB
+ question ─▶ ReAct agent ⇄ tools ─▶ answer + citations ─SSE─▶ UI</pre></div>
+            </div>
+          </article>
+
+          <article class="prow" data-tags="systems backend">
+            <span class="prow__node" aria-hidden="true"></span>
+            <div class="prow__id">
+              <div class="prow__meta mono"><span class="prow__path">~/projects/<strong>cpp-web-framework</strong></span><span class="badge badge--wip mono">wip</span></div>
+              <h3 class="prow__name">
+              <span class="pname pname--off" tabindex="0">
+                <span class="pname__text">C++ Web Framework</span><span class="pname__icon" aria-hidden="true">⊘</span>
+                <span class="peek mono"><span class="peek__text">// repo coming soon</span></span>
+              </span>
+              </h3>
+              <p class="prow__sub">A web framework written in C++</p>
+              <ul class="tags mono"><li>C++</li></ul>
+              <p class="prow__kw mono"><span class="muted">// </span>web framework · HTTP · C++</p>
+            </div>
+            <div class="prow__body">
+              <p class="prow__desc prow__desc--soon mono">description coming soon<span class="blink">_</span></p>
+            </div>
+          </article>
+
+          <article class="prow" data-tags="systems">
+            <span class="prow__node" aria-hidden="true"></span>
+            <div class="prow__id">
+              <div class="prow__meta mono"><span class="prow__path">~/projects/<strong>async-rt</strong></span><span class="badge badge--wip mono">wip</span></div>
+              <h3 class="prow__name">
+              <span class="pname pname--off" tabindex="0">
+                <span class="pname__text">async-rt</span><span class="pname__icon" aria-hidden="true">⊘</span>
+                <span class="peek mono"><span class="peek__text">// repo coming soon</span></span>
+              </span>
+              </h3>
+              <p class="prow__sub">Tokio-style async runtime in C++</p>
+              <ul class="tags mono"><li>C++20</li><li>threads</li><li>coroutines</li></ul>
+              <p class="prow__kw mono"><span class="muted">// </span>executor · task scheduler · worker thread pool · concurrency</p>
+            </div>
+            <div class="prow__body">
+              <p class="prow__desc">A tokio-style async runtime written in modern C++, with an executor, a task scheduler and a worker thread pool. Built to learn concurrency properly, from the ground up.</p>
+            </div>
+          </article>
+
+          <article class="prow" data-tags="ai backend">
+            <span class="prow__node" aria-hidden="true"></span>
+            <div class="prow__id">
+              <div class="prow__meta mono"><span class="prow__path">~/projects/<strong>job-alert-agent</strong></span><span class="badge badge--done mono">complete</span></div>
+              <h3 class="prow__name">
+              <span class="pname pname--off" tabindex="0">
+                <span class="pname__text">job-alert-agent</span><span class="pname__icon" aria-hidden="true">⊘</span>
+                <span class="peek mono"><span class="peek__text">// private: won't be published to GitHub</span></span>
+              </span>
+              </h3>
+              <p class="prow__sub">Job alert agent</p>
+              <ul class="tags mono"><li>Python</li><li>Gemini API</li><li>SQLite</li><li>rich</li></ul>
+              <p class="prow__kw mono"><span class="muted">// </span>IMAP · rule-based filters · LLM fit scoring · keyword fallback · de-duplication · terminal dashboard</p>
+            </div>
+            <div class="prow__body">
+              <p class="prow__desc">Reads job-alert emails over IMAP, filters by location, seniority and experience, scores each job's fit with Gemini (with a keyword fallback), de-duplicates in SQLite, and shows a live terminal dashboard.</p>
+              <p class="prow__note mono"><span class="muted">note:</span> complete, kept private. It won't be published to GitHub.</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="next mono reveal">
+          <span class="muted">$ cat ROADMAP.md</span><br />
+          <span class="accent">next →</span> an eBPF tracing agent: describe what you want to trace in plain English; an agent writes and loads the eBPF program, reads the output, and iterates.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== ACADEMICS (LaTeX paper style) ========== -->
+    <section class="section section--paper" id="academics">
+      <span class="watermark mono" data-speed="-0.25" aria-hidden="true">0x04</span>
+      <div class="container">
+        <h2 class="section__title"><span class="addr">0x04</span> academics <span class="rule"></span></h2>
+
+        <article class="paper reveal">
+          <div class="paper__running">
+            <span>R. Tiwari</span>
+            <span>Academic Record</span>
+          </div>
+
+          <header class="paper__header">
+            <h3 class="paper__title">Bachelor of Engineering in<br />Computer Engineering</h3>
+            <p class="paper__author">Ritesh Tiwari</p>
+            <p class="paper__affil">
+              Department of Computer Engineering<br />
+              Vidyalankar Institute of Technology, Wadala, Mumbai<br />
+              <span class="sc">University of Mumbai</span>
+            </p>
+            <p class="paper__date">2021–2025</p>
+          </header>
+
+          <div class="paper__abstract">
+            <p class="paper__abstract-title">Abstract</p>
+            <p>
+              This record summarises a four-year undergraduate programme in Computer Engineering,
+              completed with a cumulative grade point average of 9.4 on a 10-point scale.<sup>1</sup>
+              Coursework centred on operating systems, computer architecture, networks and
+              algorithms; outside the classroom, the author served as Technical Head of the
+              Computer Engineering Students' Association and co-authored a peer-reviewed paper
+              on an AI voice assistant for people with disabilities.
+            </p>
+          </div>
+
+          <div class="paper__body">
+            <h4><span class="secnum">1</span>Degree</h4>
+            <table class="booktabs">
+              <thead>
+                <tr><th>Programme</th><th>Institution</th><th>Years</th><th class="num">CGPA</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>B.E., Computer Engineering</td>
+                  <td>Vidyalankar Institute of Technology</td>
+                  <td>2021–2025</td>
+                  <td class="num"><strong>9.4</strong>&thinsp;/&thinsp;10</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="caption"><span class="sc">Table 1.</span> Undergraduate degree, University of Mumbai.</p>
+
+            <h4><span class="secnum">2</span>Relevant Coursework</h4>
+            <ul class="paper__cols">
+              <li>Data Structures</li>
+              <li>Analysis of Algorithms</li>
+              <li>Operating Systems</li>
+              <li>Computer Organisation &amp; Architecture</li>
+              <li>Microprocessors</li>
+              <li>Computer Networks</li>
+              <li>Database Management Systems</li>
+              <li>System Programming &amp; Compiler Construction</li>
+            </ul>
+
+            <h4><span class="secnum">3</span>Publications</h4>
+            <ol class="refs">
+              <li>
+                <span class="refnum">[1]</span>
+                <span>
+                  R.&nbsp;Tiwari <em>et&nbsp;al.</em>, &ldquo;AI Assistant for Disabled,&rdquo;
+                  <em>International Journal of Innovative Research in Technology (IJIRT)</em>, Apr.&nbsp;2025.
+                  <a href="https://ijirt.org/publishedpaper/IJIRT176064_PAPER.pdf" target="_blank" rel="noopener">[pdf]</a>
+                  <button class="bibtoggle" type="button" aria-expanded="false" aria-controls="bib1">[bibtex]</button>
+                </span>
+              </li>
+            </ol>
+            <pre class="bibtex" id="bib1" hidden><code>@article{tiwari2025assistant,
+  title   = {AI Assistant for Disabled},
+  author  = {Tiwari, Ritesh and others},
+  journal = {International Journal of Innovative Research in Technology},
+  year    = {2025},
+  month   = apr,
+  note    = {IJIRT176064}
+}</code><button class="bibcopy mono" type="button">copy</button></pre>
+
+            <h4><span class="secnum">4</span>Leadership</h4>
+            <dl class="paper__dl">
+              <dt>Technical Head</dt>
+              <dd>Computer Engineering Students' Association (CESA) <span class="yr">2023–2024</span></dd>
+              <dt>Technical Core Member</dt>
+              <dd>CESA &amp; IEEE Student Branch <span class="yr">2022–2023</span></dd>
+            </dl>
+
+            <div class="footnotes">
+              <p><sup>1</sup> Cumulative Grade Point Average, University of Mumbai 10-point scale.</p>
+            </div>
+          </div>
+
+          <div class="paper__pageno">1</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="section" id="contact">
+      <span class="watermark mono" data-speed="-0.25" aria-hidden="true">0x05</span>
+      <div class="container">
+        <h2 class="section__title"><span class="addr">0x05</span> contact <span class="rule"></span></h2>
+
+        <div class="contact reveal">
+          <div class="terminal terminal--static">
+            <div class="terminal__bar">
+              <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+              <span class="terminal__title">connect.sh</span>
+            </div>
+<pre class="terminal__body"><span class="p">$</span> ./connect --to ritesh
+<span class="muted">resolving host… ok</span>
+<span class="muted">opening socket…  ok</span>
+
+  <span class="k">email</span>     <a href="mailto:ritesh.tiwari.162002@gmail.com">ritesh.tiwari.162002@gmail.com</a>
+  <span class="k">github</span>    <a href="https://github.com/monarch-69" target="_blank" rel="noopener">github.com/monarch-69</a>
+  <span class="k">linkedin</span>  <a href="https://www.linkedin.com/in/ritesh-tiwari-67871124a/" target="_blank" rel="noopener">linkedin.com/in/ritesh-tiwari-67871124a</a>
+  <span class="k">resume</span>    <a href="assets/Ritesh_Tiwari_Resume.pdf" target="_blank" rel="noopener">Ritesh_Tiwari_Resume.pdf</a>
+  <span class="k">location</span>  Mumbai, India · open to remote / relocation within India
+
+<span class="ok">connection established.</span> <span class="muted">// usually replies within a day</span>
+<span class="p">$</span> <span class="cursor"></span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer mono">
+    <div class="container footer__inner">
+      <span>© <span id="year">2026</span> Ritesh Tiwari</span>
+      <span class="muted">plain HTML/CSS/JS · served by GitHub Pages</span>
+      <span class="muted">exit 0</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
