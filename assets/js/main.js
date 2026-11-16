@@ -208,26 +208,75 @@
     });
   }
 
-  /* ---------- active nav link on scroll ---------- */
+  /* ---------- current section: sliding nav pill + "cd ~/section" in the prompt ---------- */
   const navLinks = [...document.querySelectorAll(".nav__links a")];
   const sections = navLinks
     .map((a) => document.querySelector(a.getAttribute("href")))
     .filter(Boolean);
-  if ("IntersectionObserver" in window && sections.length) {
-    const spy = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting) {
-            navLinks.forEach((a) =>
-              a.classList.toggle("is-active", a.getAttribute("href") === "#" + en.target.id)
-            );
-          }
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" }
-    );
-    sections.forEach((s) => spy.observe(s));
+  const pill = document.querySelector(".nav__pill");
+  const promptPath = document.querySelector(".prompt-path");
+  const promptCmd = document.querySelector(".prompt-cmd");
+  let currentId = "";        // "" means the hero, i.e. "~"
+  let navLockUntil = 0;      // while a nav click is scrolling, ignore the sections it passes
+
+  function movePill(id) {
+    if (!pill) return;
+    const link = navLinks.find((a) => a.getAttribute("href") === "#" + id);
+    if (!link) { pill.classList.remove("is-on"); return; }
+    pill.style.width = link.offsetWidth + "px";
+    pill.style.transform = `translateX(${link.offsetLeft}px)`;
+    pill.classList.add("is-on");
   }
+
+  // type "cd ~/section" after the prompt, then the prompt's path changes
+  let promptRun = 0, promptTimer = null;
+  function promptTo(id) {
+    clearTimeout(promptTimer);
+    const run = ++promptRun;
+    const path = id ? "~/" + id : "~";
+    const show = promptCmd && getComputedStyle(promptCmd).display !== "none" && !reduceMotion;
+    const setPath = () => {
+      promptPath.textContent = path;
+      promptPath.classList.add("is-changing");
+      requestAnimationFrame(() => requestAnimationFrame(() => promptPath.classList.remove("is-changing")));
+    };
+    if (!show) { if (promptCmd) promptCmd.textContent = ""; return setPath(); }
+    const cmd = " cd " + path;
+    let k = 0;
+    (function step() {
+      if (run !== promptRun) return;
+      promptCmd.textContent = cmd.slice(0, ++k);
+      if (k < cmd.length) { promptTimer = setTimeout(step, 38 + Math.random() * 30); return; }
+      promptTimer = setTimeout(() => {          // "press enter": the directory changes
+        if (run !== promptRun) return;
+        promptCmd.textContent = "";
+        setPath();
+      }, 280);
+    })();
+  }
+
+  function setCurrent(id, immediate) {
+    if (id === currentId) return;
+    currentId = id;
+    navLinks.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + id));
+    movePill(id);
+    clearTimeout(promptTimer);
+    if (immediate) promptTo(id);
+    else promptTimer = setTimeout(() => promptTo(id), 160);   // fast scrolling doesn't spam the prompt
+  }
+
+  function detectSection() {
+    if (performance.now() < navLockUntil) return;
+    const navH = navEl ? navEl.offsetHeight : 0;
+    const probe = navH + (window.innerHeight - navH) * 0.35;
+    let id = "";
+    for (const s of sections) if (s.getBoundingClientRect().top <= probe) id = s.id;
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2 && sections.length)
+      id = sections[sections.length - 1].id;
+    setCurrent(id);
+  }
+  window.addEventListener("resize", () => movePill(currentId));
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => movePill(currentId));
 
   /* ---------- reveal on scroll ---------- */
   const reveals = document.querySelectorAll(".reveal");
@@ -338,6 +387,8 @@
       e.preventDefault();
       const navH = navEl ? navEl.offsetHeight : 0;
       const y = id === "#top" ? 0 : target.getBoundingClientRect().top + window.scrollY - navH;
+      navLockUntil = performance.now() + 1100;
+      setCurrent(id === "#top" ? "" : id.slice(1), true);
       window.scrollTo({ top: Math.max(0, Math.round(y)), behavior: reduceMotion ? "auto" : "smooth" });
       history.replaceState(null, "", id === "#top" ? location.pathname : id);
     });
@@ -379,6 +430,7 @@
 
   function onScroll() {
     const vh = window.innerHeight;
+    detectSection();
 
     // parallax: each layer moves relative to its section's top edge
     if (!reduceMotion) {
@@ -411,6 +463,23 @@
       ptl.style.setProperty("--p", p.toFixed(4));
       const reach = p * r.height;
       for (const row of prows) row.classList.toggle("is-on", reduceMotion || row.offsetTop + 30 <= reach);
+    }
+
+    // projects parallax: in each row the name side drifts slower and the card
+    // slightly faster than the page, so the two sides separate as they pass.
+    // Uses the `translate` property, so it stacks with the reveal/hover transforms.
+    if (ptl && !reduceMotion) {
+      const on = desktop.matches;
+      for (const row of prows) {
+        const idEl = row.querySelector(".prow__id"), body = row.querySelector(".prow__body");
+        if (!on) { idEl.style.translate = body.style.translate = ""; continue; }
+        const r = row.getBoundingClientRect();
+        if (r.bottom < -150 || r.top > vh + 150) continue;
+        const d = r.top + r.height / 2 - vh / 2;              // distance from screen centre
+        const clamp = (v) => Math.max(-70, Math.min(70, v));
+        idEl.style.translate = `0 ${clamp(d * -0.08).toFixed(1)}px`;
+        body.style.translate = `0 ${clamp(d * 0.05).toFixed(1)}px`;
+      }
     }
   }
 
