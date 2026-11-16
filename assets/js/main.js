@@ -16,11 +16,12 @@
 
     // Speeds in milliseconds. Raise them to slow the intro down, lower them to speed it up.
     const PACE = {
-      cmdChar: 34,     // per character of the typed ssh command
-      char: 10,        // per character of each log line
-      linePause: 330,  // pause after each line turns [ OK ]
-      fetchTick: 45,   // per step of the "fetching portfolio" bar
-      hold: 1300,      // how long "OPERATIONAL" stays before the screen closes
+      cmdTotal: 1000,  // the whole ssh command types out in about this long
+      lineTotal: 450,  // each log line's text types out in about this long
+      settle: 400,     // the [ .   ] dots keep spinning this long before [ OK ]
+      linePause: 200,  // pause after a line turns [ OK ], before the next one
+      fetchTotal: 1200,// the "fetching portfolio" bar fills in about this long
+      hold: 1600,      // how long "OPERATIONAL" stays before the screen closes
     };
 
     const host = location.hostname || "monarch-69.github.io";
@@ -35,7 +36,6 @@
     const ttfb = ms(nav.responseStart - nav.requestStart, 30, 90);
 
     const OK = '<span class="ok">[  OK  ]</span> ';
-    const WAIT = '<span class="wait">[ .... ]</span> ';
     const CARET = '<span class="led">▌</span>';
     const CMD = (c) => `<span class="p">$</span> <span class="hi">${escB(c)}</span>`;
     const FINAL = `all systems checked. status: <span class="op">OPERATIONAL</span> <span class="led">●</span>`;
@@ -85,12 +85,29 @@
     setTimeout(skip, 30000); // safety net: never trap the visitor
 
     // type `text` into the last line, one character at a time
-    async function typeLine(prefix, text, perChar) {
-      for (let k = 1; k <= text.length; k++) {
+    async function typeLine(prefix, text, totalMs) {
+      const t0 = performance.now();
+      for (;;) {
         if (finish.done) return false;
-        lines[lines.length - 1] = prefix + '<span class="hi">' + escB(text.slice(0, k)) + "</span>";
+        const k = Math.min(text.length, Math.ceil(((performance.now() - t0) / totalMs) * text.length));
+        lines[lines.length - 1] = prefix() + '<span class="hi">' + escB(text.slice(0, k)) + "</span>";
         draw(CARET);
-        await sleep(perChar);
+        if (k >= text.length) return true;
+        await sleep(16);
+      }
+    }
+
+    // "[ .   ]" → "[ ..  ]" → "[ ... ]" while a step is in progress
+    const SPIN = ["[ .    ]", "[ ..   ]", "[ ...  ]", "[ .... ]"];
+    let spinStart = 0;
+    const wait = () => `<span class="wait">${SPIN[Math.floor((performance.now() - spinStart) / 130) % SPIN.length]}</span> `;
+    async function spin(ms, render) {
+      const t0 = performance.now();
+      while (performance.now() - t0 < ms) {
+        if (finish.done) return false;
+        lines[lines.length - 1] = render();
+        draw();
+        await sleep(40);
       }
       return true;
     }
@@ -103,19 +120,20 @@
 
         if (st.cmd) {
           lines.push("");
-          if (!(await typeLine('<span class="p">$</span> ', st.cmd, PACE.cmdChar))) return;
+          if (!(await typeLine(() => '<span class="p">$</span> ', st.cmd, PACE.cmdTotal))) return;
           lines[lines.length - 1] = CMD(st.cmd);
           draw("\n" + CARET);
-          await sleep(PACE.linePause + 200);
+          await sleep(PACE.linePause + 400);
           continue;
         }
 
         if (st.fetch) {
           // progress bar tied to the real page load (fonts, scripts, photo)
           let p = 0;
+          spinStart = performance.now();
           const bar = () => {
             const n = Math.round((p / 100) * BAR_W);
-            return `${WAIT}fetching portfolio  <span class="ok">[${"█".repeat(n)}${"░".repeat(BAR_W - n)}]</span> ${p}%`;
+            return `${wait()}fetching portfolio  <span class="ok">[${"█".repeat(n)}${"░".repeat(BAR_W - n)}]</span> ${p}%`;
           };
           lines.push(bar());
           let isLoaded = false;
@@ -126,7 +144,7 @@
             lines[lines.length - 1] = bar();
             draw();
             setPct(42 + p * 0.48);
-            await sleep(PACE.fetchTick);
+            await sleep(PACE.fetchTotal / 28);
             if (p >= 90 && !isLoaded) await Promise.race([loaded, sleep(2500)]).then(() => (isLoaded = true));
           }
           if (finish.done) return;
@@ -139,16 +157,18 @@
         if (st.final) {
           lines.push("");
           lines.push("");
-          if (!(await typeLine("", plain(FINAL).replace(" ●", ""), PACE.char + 8))) return;
+          if (!(await typeLine(() => "", plain(FINAL).replace(" ●", ""), 800))) return;
           lines[lines.length - 1] = FINAL;
           draw();
           await sleep(PACE.hold);
           continue;
         }
 
-        // a log line: "[ .... ]" while its text types out, then it flips to "[  OK  ]"
-        lines.push(WAIT);
-        if (!(await typeLine(WAIT, plain(st.m), PACE.char))) return;
+        // a log line: spinning "[ .   ]" while its text types out and settles, then "[  OK  ]"
+        spinStart = performance.now();
+        lines.push(wait());
+        if (!(await typeLine(wait, plain(st.m), PACE.lineTotal))) return;
+        if (!(await spin(PACE.settle, () => wait() + '<span class="hi">' + escB(plain(st.m)) + "</span>"))) return;
         lines[lines.length - 1] = OK + st.m;
         draw("\n" + CARET);
         if (st.p) setPct(st.p);
